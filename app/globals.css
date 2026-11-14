@@ -1,0 +1,106 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --canvas: 247 245 241;
+    --surface: 255 255 255;
+    --sunken: 238 235 229;
+    --ink: 22 21 19;
+    --muted: 112 107 99;
+    --line: 223 218 209;
+    --accent: 133 101 66;
+    --success: 46 122 80;
+    --danger: 178 58 48;
+    --warning: 168 118 30;
+    color-scheme: light;
+  }
+  .dark {
+    --canvas: 13 13 12;
+    --surface: 23 22 21;
+    --sunken: 31 30 28;
+    --ink: 239 236 231;
+    --muted: 150 144 136;
+    --line: 47 45 42;
+    --accent: 204 172 130;
+    --success: 98 186 136;
+    --danger: 232 108 96;
+    --warning: 222 172 84;
+    color-scheme: dark;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-canvas text-ink font-sans;
+    font-feature-settings: "ss01", "cv11";
+  }
+  ::selection {
+    @apply bg-ink text-canvas;
+  }
+  :focus-visible {
+    @apply outline-none ring-2 ring-ink/70 ring-offset-2 ring-offset-canvas;
+  }
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-[1480px] px-4 sm:px-6 lg:px-10;
+  }
+  .eyebrow {
+    @apply text-[11px] font-medium uppercase tracking-luxe text-muted;
+  }
+  .display {
+    @apply font-serif font-normal tracking-[-0.01em];
+  }
+  .glass {
+    @apply bg-canvas/75 backdrop-blur-xl backdrop-saturate-150;
+  }
+  .card {
+    @apply rounded-2xl border border-line bg-surface;
+  }
+  .link-underline {
+    @apply relative after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:origin-right after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:origin-left hover:after:scale-x-100;
+  }
+  .skeleton {
+    @apply relative overflow-hidden rounded-md bg-sunken;
+  }
+  .skeleton::after {
+    content: "";
+    @apply absolute inset-0 -translate-x-full;
+    background: linear-gradient(90deg, transparent, rgb(var(--surface) / 0.55), transparent);
+    animation: shimmer 1.4s infinite;
+  }
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

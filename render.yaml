@@ -1,0 +1,18 @@
+# Render Blueprint — one-click deploy of the Lumen demo on Render's free plan.
+# Render → New → Blueprint → pick this repo. It reads this file automatically.
+services:
+  - type: web
+    name: lumen-atelier
+    runtime: node
+    plan: free
+    region: singapore # closest Render region to India
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/products?limit=1
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: NEXT_TELEMETRY_DISABLED
+        value: "1"
+      - key: AUTH_SECRET
+        generateValue: true # Render creates a random secret for signing logins
